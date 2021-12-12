@@ -1,4 +1,4 @@
-package com.hamomel.vision.data
+package com.hamomel.vision.core.network
 
 import okhttp3.Interceptor
 import okhttp3.Response

@@ -1,7 +1,8 @@
 package com.hamomel.vision
 
 import android.app.Application
-import com.hamomel.vision.data.networkModule
+import com.hamomel.vision.core.di.networkModule
+import com.hamomel.vision.searchresults.di.visualSearchModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -14,7 +15,7 @@ class VisionApp : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@VisionApp)
-            modules(networkModule)
+            modules(networkModule, visualSearchModule)
         }
     }
 }

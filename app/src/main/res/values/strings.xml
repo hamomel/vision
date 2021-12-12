@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Vision</string>
+    <string name="visual_search_error_title">Что-то пошло не так, попробуйте позже</string>
+    <string name="visual_search_retry_button_text">Повтороить</string>
 </resources>
