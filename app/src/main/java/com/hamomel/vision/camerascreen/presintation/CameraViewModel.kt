@@ -11,6 +11,7 @@ import com.hamomel.vision.camerascreen.detection.CameraController
 import com.hamomel.vision.camerascreen.detection.DetectionModel
 import com.hamomel.vision.permissions.Granted
 import com.hamomel.vision.permissions.PermissionChecker
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
@@ -23,7 +24,8 @@ import kotlinx.coroutines.withContext
 class CameraViewModel(
     private val detectionModel: DetectionModel,
     private val cameraController: CameraController,
-    private val permissionsChecker: PermissionChecker
+    private val permissionsChecker: PermissionChecker,
+    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
 ) : ViewModel() {
 
     private val _viewState = MutableStateFlow(emptyList<DetectedObject>())
@@ -65,7 +67,7 @@ class CameraViewModel(
             val image = detectionModel.getLastImage()
             val boundingBox = image.detectedObjects.firstOrNull()?.boundingBox ?: return@launch
 
-            withContext(Dispatchers.Default) {
+            withContext(defaultDispatcher) {
                 val width = boundingBox.right - boundingBox.left
                 val height = boundingBox.bottom - boundingBox.top
                 val objectBitmap = Bitmap.createBitmap(image.image, boundingBox.left, boundingBox.top, width, height)
