@@ -2,4 +2,9 @@
     <string name="app_name">Vision</string>
     <string name="visual_search_error_title">Что-то пошло не так, попробуйте позже</string>
     <string name="visual_search_retry_button_text">Повтороить</string>
+
+    <string name="need_permission_dialog_title">Приложению нужен доступ к камере</string>
+    <string name="need_permission_dialog_message">Для того чтобы распознавать объкты приложению нужен доступ к камере. Перейдите в астройки и дайте доступ. Иначе приложение не сможет работать.</string>
+    <string name="need_permission_dialog_positive_button">Перейти в настройки</string>
+    <string name="need_permission_dialog_negative_button">Закрыть приложение</string>
 </resources>

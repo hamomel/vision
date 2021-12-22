@@ -29,7 +29,7 @@ class Action(
 @Serializable
 class Data(
     @SerialName("value")
-    val value: List<VisualSearchItem>
+    val value: List<VisualSearchItem> = emptyList()
 )
 
 @Serializable
@@ -39,5 +39,9 @@ data class VisualSearchItem(
     @SerialName("contentUrl")
     val contentUrl: String,
     @SerialName("hostPageUrl")
-    val hostPageUrl: String
+    val hostPageUrl: String,
+    @SerialName("height")
+    val height: Int = 0,
+    @SerialName("width")
+    val width: Int = 0
 )
