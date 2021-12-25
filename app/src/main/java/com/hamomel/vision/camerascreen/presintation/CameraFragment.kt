@@ -32,14 +32,38 @@ class CameraFragment : Fragment(R.layout.fragment_camera), PermissionDialogActio
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.viewState.collect { state ->
+                viewModel.detectedObjects.collect { state ->
                     binding.captureButton.isActivated = state.isNotEmpty()
+                    binding.overlayView.objects = state
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
+                viewModel.detectedObjects.collect { objects ->
+                    binding.captureButton.isActivated = objects.isNotEmpty()
+                    binding.overlayView.objects = objects
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
+                viewModel.imageSize.collect { size ->
+                    binding.overlayView.updateImageSize(size)
                 }
             }
         }
 
         binding.captureButton.setOnClickListener {
-            viewModel.onButtonClick()
+            val objectInCenter = binding.overlayView.getMostCenteredObject()
+            objectInCenter?.let {
+                viewModel.onObjectSelected(it)
+            }
+        }
+        binding.overlayView.setOnSpotTouchListener { obj ->
+            viewModel.onObjectSelected(obj)
         }
     }
 

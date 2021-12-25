@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="360dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    app:cardCornerRadius="16dp">
+<androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="360dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="16dp">
 
     <ImageView
-        android:id="@+id/item_image_view"
-        android:scaleType="centerCrop"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+            android:id="@+id/item_image_view"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="86dp"
-        android:layout_gravity="bottom"
-        android:background="@drawable/search_result_item_gradient"/>
+            android:layout_width="match_parent"
+            android:layout_height="86dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/search_result_item_gradient"/>
 
     <TextView
-        android:id="@+id/description_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:maxLines="3"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:layout_margin="16dp"
-        tools:text="Seznamte se s neznámou kokedamou | Flóra na zahradě" />
-
+            android:id="@+id/description_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:maxLines="3"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_margin="16dp"
+            tools:text="Seznamte se s neznámou kokedamou | Flóra na zahradě"/>
 </androidx.cardview.widget.CardView>

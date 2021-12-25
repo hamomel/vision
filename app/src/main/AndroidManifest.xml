@@ -17,6 +17,8 @@
         android:name=".VisionApp">
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

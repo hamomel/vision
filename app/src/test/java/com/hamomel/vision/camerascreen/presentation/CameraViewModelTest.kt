@@ -2,6 +2,7 @@ package com.hamomel.vision.camerascreen.presentation
 
 import android.Manifest
 import android.graphics.Bitmap
+import android.util.Size
 import androidx.camera.core.Preview
 import androidx.lifecycle.LifecycleOwner
 import com.google.mlkit.vision.objects.DetectedObject
@@ -46,6 +47,7 @@ class CameraViewModelTest {
     @Before
     fun setup() {
         every { detectionModel.detectedObjects } returns flowOf(testDetectedObjects)
+        every { detectionModel.imageSize } returns flowOf(Size(100, 100))
 
         viewModel = CameraViewModel(
             detectionModel = detectionModel,
@@ -58,7 +60,7 @@ class CameraViewModelTest {
     @Test
     fun `should expose same DetectedObjects that get from detectionModel`() = runTest {
         runCurrent()
-        val viewState = viewModel.viewState.first()
+        val viewState = viewModel.detectedObjects.first()
 
         assertEquals(testDetectedObjects, viewState)
     }
@@ -132,7 +134,7 @@ class CameraViewModelTest {
 
         coEvery { detectionModel.getLastImage() } returns lastImage
 
-        viewModel.onButtonClick()
+        viewModel.onObjectSelected(testDetectedObjects[0])
         runCurrent()
 
         coVerify(exactly = 1) { detectionModel.getLastImage() }
@@ -157,7 +159,7 @@ class CameraViewModelTest {
         val eventDeferred = async { viewModel.viewEvents.first() }
         runCurrent()
 
-        viewModel.onButtonClick()
+        viewModel.onObjectSelected(testDetectedObjects[0])
         runCurrent()
 
         val event = eventDeferred.await()

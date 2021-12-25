@@ -7,4 +7,6 @@
     <string name="need_permission_dialog_message">Для того чтобы распознавать объкты приложению нужен доступ к камере. Перейдите в астройки и дайте доступ. Иначе приложение не сможет работать.</string>
     <string name="need_permission_dialog_positive_button">Перейти в настройки</string>
     <string name="need_permission_dialog_negative_button">Закрыть приложение</string>
+    
+    <string name="search_result_title">Поиск</string>
 </resources>

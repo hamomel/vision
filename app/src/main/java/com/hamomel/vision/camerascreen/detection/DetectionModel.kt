@@ -2,6 +2,7 @@ package com.hamomel.vision.camerascreen.detection
 
 import android.graphics.Bitmap
 import android.media.Image
+import android.util.Size
 import com.google.android.gms.tasks.Tasks
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.common.internal.ImageConvertUtils
@@ -10,6 +11,7 @@ import com.google.mlkit.vision.objects.ObjectDetector
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
@@ -27,6 +29,12 @@ class DetectionModel(
     )
     val detectedObjects: Flow<List<DetectedObject>> get() = _detectedObjects
 
+    // it would be more convenient to join image size with detected objects into dedicated class,
+    // but we would need to create a new object each recognition,
+    // and it would create unwanted load on the garbage collector
+    private val _imageSize = MutableStateFlow(Size(0, 0))
+    val imageSize: Flow<Size> get() = _imageSize
+
     private var lastImageCallback: ((Bitmap, List<DetectedObject>) -> Unit)? = null
 
     fun process(mediaImage: Image, rotation: Int) {
@@ -36,6 +44,14 @@ class DetectionModel(
 
         handleCallback(image, detectedObjects)
 
+        val currentSize = _imageSize.value
+        if (image.width != currentSize.width || image.height != currentSize.height) {
+            _imageSize.value = if (rotation == 90 || rotation == 180) {
+                Size(image.height, image.width)
+            } else {
+                Size(image.width, image.height)
+            }
+        }
         _detectedObjects.tryEmit(detectedObjects)
     }
 

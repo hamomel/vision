@@ -70,8 +70,6 @@ class VisualSearchResultsFragment : Fragment(R.layout.fragment_visual_search) {
                 subscribeToEvents()
             }
         }
-
-        binding.preview.setImageBitmap(bitmap)
     }
 
     private suspend fun subscribeToEvents() {
