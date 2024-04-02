@@ -2,47 +2,37 @@ name: Release Branch and Bump Version (Manual)
 
 on:
   workflow_dispatch:  # Triggered by manual workflow dispatch
-
+    inputs:
+      issue_number:
+        required: true
+        type: string
+      release_number:
+        required: true
+        type: string
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Extract release numbers (interactive)
-        id: extract_version
-        run: |
-          # Get user input for issue number and release number
-          echo "Enter the issue number for this release:"
-          read -r ISSUE_NUMBER
-          echo "Enter the release number:"
-          read -r RELEASE_NUMBER
-          echo "ISSUE_NUMBER=$ISSUE_NUMBER"
-          echo "RELEASE_NUMBER=$RELEASE_NUMBER"
-          # Set these outputs as environment variables
-          echo "::set-output name=ISSUE_NUMBER::$ISSUE_NUMBER"
-          echo "::set-output name=RELEASE_NUMBER::$RELEASE_NUMBER"
-
       - name: Checkout dev branch
         uses: actions/checkout@v4
         with:
           ref: dev
 
-      - name: Create release branch
-        run: |
-          git checkout -b ${{ steps.extract_version.outputs.ISSUE_NUMBER }}-release-${{ steps.extract_version.outputs.RELEASE_NUMBER }}
-
       - name: Bump version (replace with your actual version bumping logic)
         run: |
           # Replace with your specific command to bump version to RELEASE_NUMBER
           echo "# This is a placeholder, replace with your version bumping command"
-          echo "echo 'Bumping version to ${{ steps.extract_version.outputs.RELEASE_NUMBER }}' >> README.md"
+          
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-          git commit -m "${{ steps.extract_version.outputs.ISSUE_NUMBER }}: Bump version to ${{ steps.extract_version.outputs.RELEASE_NUMBER }}"
+          git commit -m "${{ inputs.issue_number }}: Bump app version to ${{ inputs.release_number }}"
+          git push
 
-      - name: Cherry-pick commit to dev branch
+      - name: Create release branch
         run: |
-          echo "git checkout dev"
-          echo "git cherry-pick ${{ github.sha }}"
+          BRANCH_NAME=${{ inputs.issue_number }}-release-${{ inputs.release_number }}
+          git checkout -b BRANCH_NAME
+          git push origin -u BRANCH_NAME
