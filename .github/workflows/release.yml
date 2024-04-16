@@ -25,7 +25,7 @@ jobs:
           # Replace with your specific command to bump version to RELEASE_NUMBER
           echo This is a placeholder, replace with your version bumping command
           touch README.md
-          bash "echo 'Bumping version to ${{ inputs.release_number }}'"
+          echo 'Bumping version to ${{ inputs.release_number }}' >> README.md
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
