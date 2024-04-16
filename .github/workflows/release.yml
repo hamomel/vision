@@ -38,3 +38,10 @@ jobs:
           BRANCH_NAME=${{ inputs.issue_number }}-release-${{ inputs.release_number }}
           git checkout -b $BRANCH_NAME
           git push origin -u $BRANCH_NAME
+
+      - name: Add build tag
+        run: |
+          TAG=rc_${{ inputs.release_number }}.1_${{ inputs.issue_number }}
+          git tag $TAG
+          git push origin $TAG
+          
