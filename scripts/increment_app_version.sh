@@ -8,7 +8,7 @@ increment_version_number() {
   local new_content=""
 
   # Find the line containing the version number
-  version_line=$(grep -E '^val\s+versionCode\s*=\s*[0-9]+$' <<< "$content")
+  version_line=$(grep -E 'versionCode\s*=\s*[0-9]+$' <<< "$content")
 
   # Extract current version number
   current_version=${version_line##*=}
@@ -28,7 +28,7 @@ increment_version_code() {
   local new_content=""
 
   # Find the line containing the version number
-  version_line=$(grep -E '^val\s+versionName\s*=\s*"([0-9].+)"+$' <<< "$content")
+  version_line=$(grep -E 'versionName\s*=\s*"([0-9].+)"+$' <<< "$content")
 
   # Replace old version number with new one
   new_content=$(echo "$content" | sed "s/$version_line/    versionName = \"$new_code\"/")
