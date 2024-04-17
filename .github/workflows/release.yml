@@ -23,7 +23,7 @@ jobs:
       - name: Bump app version
         run: |
           chmod +x scripts/increment_app_version.sh
-          ./scripts/increment_app_version.sh inputs.release_number
+          ./scripts/increment_app_version.sh ${{ inputs.release_number }}
           
       - name: Commit updated app version
         run: |
@@ -42,7 +42,8 @@ jobs:
 
       - name: Add build tag
         run: |
-          TAG=rc_${{ inputs.release_number }}.1_${{ inputs.issue_number }}
+          issue_number=${inputs.issue_number##MOBILE-}
+          TAG=rc_${{ inputs.release_number }}.1_${{ issue_number }}
           git tag $TAG
           git push origin $TAG
           
