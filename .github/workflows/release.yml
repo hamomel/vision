@@ -44,7 +44,7 @@ jobs:
 
       - name: Add build tag
         run: |
-          ISSUE=${inputs.issue_number}
+          ISSUE=${{ inputs.issue_number }}
           ISSUE_NUMBER=${ISSUE#*-}
           TAG=rc_${{ inputs.release_number }}.1_${ISSUE_NUMBER}
           git tag $TAG
