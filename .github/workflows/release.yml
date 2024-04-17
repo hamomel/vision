@@ -46,7 +46,7 @@ jobs:
         run: |
           ISSUE=${inputs.issue_number}
           ISSUE_NUMBER=${ISSUE#*-}
-          TAG=rc_${{ inputs.release_number }}.1_${{ ISSUE_NUMBER }}
+          TAG=rc_${{ inputs.release_number }}.1_${ISSUE_NUMBER}
           git tag $TAG
           git push origin $TAG
           
