@@ -4,9 +4,11 @@ on:
   workflow_dispatch:  # Triggered by manual workflow dispatch
     inputs:
       issue_number:
+        description: 'Issue number in format MOBILE-123'
         required: true
         type: string
       release_number:
+        description: 'Release number in format 1.0.0'
         required: true
         type: string
 jobs:
@@ -42,8 +44,8 @@ jobs:
 
       - name: Add build tag
         run: |
-          issue_number=${inputs.issue_number##MOBILE-}
-          TAG=rc_${{ inputs.release_number }}.1_${{ issue_number }}
+          ISSUE_NUMBER=${{ inputs.issue_number##MOBILE- }}
+          TAG=rc_${{ inputs.release_number }}.1_${{ ISSUE_NUMBER }}
           git tag $TAG
           git push origin $TAG
           
