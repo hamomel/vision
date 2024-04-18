@@ -1,5 +1,8 @@
 name: Release Branch and Bump Version (Manual)
 
+env:
+  GRADLE_FILE_NAME: app/build.gradle
+
 on:
   workflow_dispatch:  # Triggered by manual workflow dispatch
     inputs:
@@ -25,7 +28,7 @@ jobs:
       - name: Bump app version
         run: |
           chmod +x scripts/increment_app_version.sh
-          ./scripts/increment_app_version.sh 'app/build.gradle' ${{ inputs.release_number }}
+          ./scripts/increment_app_version.sh $GRADLE_FILE_NAME ${{ inputs.release_number }}
           
       - name: Commit updated app version
         run: |
