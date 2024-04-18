@@ -14,6 +14,10 @@ on:
         description: 'Release number in format 1.0.0'
         required: true
         type: string
+      version_code:
+        description: 'Version code in format 567'
+        required: false
+        type: string
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -28,7 +32,7 @@ jobs:
       - name: Bump app version
         run: |
           chmod +x scripts/increment_app_version.sh
-          ./scripts/increment_app_version.sh $GRADLE_FILE_NAME ${{ inputs.release_number }}
+          ./scripts/increment_app_version.sh $GRADLE_FILE_NAME ${{ inputs.release_number }} ${{ inputs.version_code }}
           
       - name: Commit updated app version
         run: |
