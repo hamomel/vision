@@ -1,6 +1,6 @@
 #!/bin/bash
 
-file_name="app/build.gradle"
+file_name="$1"
 
 # Function to increment version number in a string
 increment_version_number() {
@@ -36,7 +36,7 @@ increment_version_code() {
   echo "$new_content"
 }
 
-new_version_code="$1"
+new_version_code="$2"
 content=$(cat $file_name)
 updated_file_string=""
 new_content=""

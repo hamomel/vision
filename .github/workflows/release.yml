@@ -25,7 +25,7 @@ jobs:
       - name: Bump app version
         run: |
           chmod +x scripts/increment_app_version.sh
-          ./scripts/increment_app_version.sh ${{ inputs.release_number }}
+          ./scripts/increment_app_version.sh "app/build.gradle" ${{ inputs.release_number }}
           
       - name: Commit updated app version
         run: |
