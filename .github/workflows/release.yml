@@ -4,7 +4,7 @@ env:
   GRADLE_FILE_NAME: app/build.gradle
 
 on:
-  workflow_dispatch:  # Triggered by manual workflow dispatch
+  workflow_dispatch: # Triggered by manual workflow dispatch
     inputs:
       issue_number:
         description: 'Issue number in format MOBILE-123'
@@ -24,6 +24,28 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check inputs
+        run: |
+          issue_number=${{ inputs.issue_number }}
+          if [[ ! issue_number =~ ^MOBILE-[0-9]{5,} ]]; then
+            echo "Error: Invalid issue number format. Must start with 'MOBILE-' and have at least 5 digits."
+            exit 1
+          fi
+          
+          release_number=${{ inputs.release_number }}
+          if [[ ! $release_number =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Error: Invalid release number format. Must be in the format 'X.X.X'."
+            exit 1
+          fi
+          
+          version_code=${{ inputs.version_code }}
+          if [[ -z "$version_code" ]]; then
+            echo "version_code is not provided. Skipping validation."
+          elif [[ ! $version_code =~ ^[0-9]{3,}$ ]]; then
+            echo "Error: Invalid version_code format. Must be at least 3 digits."
+            exit 1
+          fi
+
       - name: Checkout dev branch
         uses: actions/checkout@v4
         with:
@@ -34,13 +56,13 @@ jobs:
         run: |
           chmod +x scripts/increment_app_version.sh
           ./scripts/increment_app_version.sh $GRADLE_FILE_NAME ${{ inputs.release_number }} ${{ inputs.version_code }}
-          
+
       - name: Commit updated app version
         run: |
           git add app/build.gradle
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-
+          
           git commit -m "${{ inputs.issue_number }}: Bump app version to ${{ inputs.release_number }}"
           git push
 
