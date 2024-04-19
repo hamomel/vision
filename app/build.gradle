@@ -11,8 +11,8 @@ android {
         applicationId "com.hamomel.vision"
         minSdk 21
         targetSdk 31
-        versionCode 55
-        versionName "5.5.5"
+        versionCode 22
+        versionName "5.6.7"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
