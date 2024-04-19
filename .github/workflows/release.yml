@@ -27,7 +27,7 @@ jobs:
       - name: Check inputs
         run: |
           issue_number=${{ inputs.issue_number }}
-          if [[ ! issue_number =~ ^MOBILE-[0-9]{5,} ]]; then
+          if [[ ! $issue_number =~ ^MOBILE-[0-9]{5,} ]]; then
             echo "Error: Invalid issue number format. Must start with 'MOBILE-' and have at least 5 digits."
             exit 1
           fi
