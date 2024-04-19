@@ -22,7 +22,13 @@ increment_version_number() {
   if [ -z "$version_code" ]; then
     new_version_code=$((current_version + 1))
   else
-    new_version_code=$version_code
+    # Check if version_code is greater than current_version
+      if [[ $version_code -gt $current_version ]]; then
+        new_version_code=$version_code
+      else
+        echo "Error: Entered version_code ($version_code) must be greater than current ($current_version)." >&2
+        return 1
+      fi
   fi
 
   # Replace old version number with new one
