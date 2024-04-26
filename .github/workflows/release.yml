@@ -59,6 +59,7 @@ jobs:
 
       - name: Commit updated app version
         run: |
+          git diff
           git add app/build.gradle
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
