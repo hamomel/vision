@@ -24,6 +24,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: webfactory/ssh-agent@v0.9.0
+              with:
+                  ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
       - name: Check inputs
         run: |
           issue_number=${{ inputs.issue_number }}
@@ -49,7 +53,7 @@ jobs:
       - name: Checkout dev branch
         uses: actions/checkout@v4
         with:
-          ssh-key: ${{ secrets.DEPLOY_KEY }}
+#          ssh-key: ${{ secrets.DEPLOY_KEY }}
           ref: dev
 
       - name: Bump app version
