@@ -29,6 +29,8 @@ jobs:
 
       - name: Check inputs
         run: |
+          key={{ secrets.DEPLOY_KEY }}
+          echo "$key"
           issue_number=${{ inputs.issue_number }}
           if [[ ! $issue_number =~ ^MOBILE-[0-9]{5,} ]]; then
             echo "Error: Invalid issue number format. Must start with 'MOBILE-' and have at least 5 digits."
