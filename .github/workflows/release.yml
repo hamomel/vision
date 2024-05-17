@@ -67,7 +67,7 @@ jobs:
           git config user.email "actions@github.com"
           
           git commit -m "${{ inputs.issue_number }}: Bump app version to ${{ inputs.release_number }}"
-          git push origin -u HEAD
+          git push origin HEAD
 
       - name: Add build tag
         run: |
