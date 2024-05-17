@@ -53,8 +53,7 @@ jobs:
         run: |
           RELEASE_BRANCH_NAME=${{ inputs.issue_number }}-release-${{ inputs.release_number }}
           git checkout -b $RELEASE_BRANCH_NAME
-          git push origin -u $RELEASE_BRANCH_NAME
-
+        
       - name: Bump app version
         run: |
           chmod +x scripts/increment_app_version.sh
