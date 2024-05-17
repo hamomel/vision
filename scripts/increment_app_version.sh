@@ -14,7 +14,7 @@ increment_version_number() {
   version_line=$(grep -E 'versionCode\s+[0-9]+$' <<< "$content")
 
   # Extract current version number
-  current_version=3
+  current_version=10
 
   # Increment version number
   new_version_code=""
