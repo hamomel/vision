@@ -89,7 +89,7 @@ jobs:
 
       - name: Create pull request
         run: |
-          gh pr create --base dev
+          gh pr create --base dev --fill
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
