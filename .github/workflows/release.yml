@@ -22,7 +22,9 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      # - uses: actions/checkout@v4
+      #   with: 
+      #     ssh-key: ${{ secrets.DEPLOY_KEY }}
 
       - name: Check inputs
         run: |
@@ -45,11 +47,11 @@ jobs:
             echo "Error: Invalid version_code format. Must be at least 3 digits."
             exit 1
           fi
-
+            
       - name: Checkout dev branch
         uses: actions/checkout@v4
         with:
-#          ssh-key: ${{ secrets.DEPLOY_KEY }}
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
           ref: dev
 
       - name: Bump app version
