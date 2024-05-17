@@ -81,9 +81,11 @@ jobs:
       - name: Create Pull Request
         run: |
           CHERRY_PICK_BRANCH=${{ inputs.issue_number }}-version-to-dev-${{ inputs.release_number }}
+          LAST_COMMIT=$(git log -1 --pretty=%H)
+          echo "Last commit: $LAST_COMMIT"
           git checkout dev
           git checkout -b $CHERRY_PICK_BRANCH
-          git cherry-pick $TAG
+          git cherry-pick $LAST_COMMIT
           git push origin $CHERRY_PICK_BRANCH
         
           
