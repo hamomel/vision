@@ -78,7 +78,7 @@ jobs:
           git tag $TAG
           git push origin $TAG
 
-      - name: Create Pull Request
+      - name: Create cherry pick branch
         run: |
           CHERRY_PICK_BRANCH=${{ inputs.issue_number }}-version-to-dev-${{ inputs.release_number }}
           LAST_COMMIT=$(git log -1 --pretty=%H)
@@ -86,7 +86,11 @@ jobs:
           git checkout -b $CHERRY_PICK_BRANCH dev
           git cherry-pick $LAST_COMMIT
           git push origin $CHERRY_PICK_BRANCH
+
+      - name: Create pull request
           gh pr create --base dev
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
           
       
