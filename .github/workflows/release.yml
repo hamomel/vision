@@ -90,9 +90,11 @@ jobs:
         run: |
           chmod +x scripts/get_random_reviewer.sh
           random_reviewer=$(./scripts/get_random_reviewer.sh)
+
+          echo "$random_reviewer"
           
-          gh pr create --base dev --fill --reviewer ${{ github.actor }},$random_reviewer
-          gh pr merge --admin --rebase --delete-branch
+          gh pr create --base dev --fill --reviewer ${{ github.actor }},"$random_reviewer"
+          gh pr merge --auto --merge --delete-branch
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
