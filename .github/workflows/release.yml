@@ -102,7 +102,7 @@ jobs:
           random_index=$((RANDOM % ${#filtered_users[@]}))
           random_user=${filtered_users[$random_index]}
           
-          gh pr create --base dev --fill --reviewer ${{ github.actor }},${random_user}
+          gh pr create --base dev --fill --reviewer ${{ github.actor }},$random_user
           gh pr merge --admin --rebase --delete-branch
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
