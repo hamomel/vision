@@ -88,7 +88,7 @@ jobs:
 
       - name: Create pull request
         run: |
-          chmod +x scripts/random_reviewer.sh
+          chmod +x scripts/get_random_reviewer.sh
           random_reviewer=$(./scripts/get_random_reviewer.sh)
           
           gh pr create --base dev --fill --reviewer ${{ github.actor }},$random_reviewer
