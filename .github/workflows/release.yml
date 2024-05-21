@@ -88,7 +88,21 @@ jobs:
 
       - name: Create pull request
         run: |
-          gh pr create --base dev --fill --reviewer ${{ github.actor }}
+          not_reviewers=("user1" "user2")
+          users="["user1","user2","user3","user4"]"
+          users=($(echo $users | jq -r '.[]'))
+  
+          filtered_users=()
+          for user in "${users[@]}"; do
+            if [[ ! " ${not_reviewers[@]} " =~ " ${user} " ]]; then
+              filtered_users+=("$user")
+            fi
+          done
+  
+          random_index=$((RANDOM % ${#filtered_users[@]}))
+          random_user=${filtered_users[$random_index]}
+          
+          gh pr create --base dev --fill --reviewer ${{ github.actor }},${random_user}
           gh pr merge --admin --rebase --delete-branch
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
